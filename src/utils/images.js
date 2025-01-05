@@ -6,6 +6,12 @@ import five from '../Assets/img/05.jpg'
 import six from '../Assets/img/06.jpg'
 import seven from '../Assets/img/07.jpg'
 import eight from '../Assets/img/08.jpg'
+import nine from '../Assets/img/09.jpg'
+import ten from '../Assets/img/10.jpg'
+import eleven from '../Assets/img/11.jpg'
+import twelve from '../Assets/img/12.jpg'
+import thirteen from '../Assets/img/13.jpg'
+import fourteen from '../Assets/img/14.jpg'
 
 export default {
     one,
@@ -15,5 +21,11 @@ export default {
     five,
     six,
     seven,
-    eight
+    eight,
+    nine,
+    ten,
+    eleven,
+    twelve,
+    thirteen,
+    fourteen
 }
