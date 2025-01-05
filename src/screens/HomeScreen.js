@@ -132,65 +132,67 @@ const HomeScreen = () => {
         </div>
       </div>
       {isTitleAnimationEnd && (
-        <div style={{ padding: 10 }}>
-          <Masonry
-            breakpointCols={breakpointColumnsObj}
-            className="masonry-grid"
-            columnClassName="masonry-column"
-          >
-            {list.map((item, index) => {
-              const isSelected = item.img === selectedImage?.img;
-              return (
-                <div
-                  onMouseEnter={() => {
-                    setSelectedImage(item);
-                  }}
-                  onClick={() => {
-                    setShowModal(true);
-                    setSelectedImage(item);
-                  }}
-                  key={index}
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    padding: 5,
-                    borderRadius: 10,
-                    boxShadow: isSelected
-                      ? "rgba(0, 0, 0, 0.50) 0px 3px 8px"
-                      : "",
-                  }}
-                >
-                  <img
-                    src={item?.img}
-                    alt={item?.name}
-                    style={{
-                      width: "100% ",
-                      height: "100%",
-                      borderRadius: "8px",
+        <>
+          <div style={{ padding: 10 }}>
+            <Masonry
+              breakpointCols={breakpointColumnsObj}
+              className="masonry-grid"
+              columnClassName="masonry-column"
+            >
+              {list.map((item, index) => {
+                const isSelected = item.img === selectedImage?.img;
+                return (
+                  <div
+                    onMouseEnter={() => {
+                      setSelectedImage(item);
                     }}
-                  />
-                </div>
-              );
-            })}
-          </Masonry>
-        </div>
+                    onClick={() => {
+                      setShowModal(true);
+                      setSelectedImage(item);
+                    }}
+                    key={index}
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      padding: 5,
+                      borderRadius: 10,
+                      boxShadow: isSelected
+                        ? "rgba(0, 0, 0, 0.50) 0px 3px 8px"
+                        : "",
+                    }}
+                  >
+                    <img
+                      src={item?.img}
+                      alt={item?.name}
+                      style={{
+                        width: "100% ",
+                        height: "100%",
+                        borderRadius: "8px",
+                      }}
+                    />
+                  </div>
+                );
+              })}
+            </Masonry>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: 20,
+              backgroundColor: "gray",
+              padding: 10,
+              fontFamily: "monospace",
+              fontSize: 14,
+              backgroundImage:
+                "linear-gradient(to right, #f2e8cb ,#b8b8b8,    #f2e8cb)",
+            }}
+          >
+            Copyright © 2025 Rushiksh Bhandare
+          </div>
+        </>
       )}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          marginTop: 20,
-          backgroundColor: "gray",
-          padding: 10,
-          fontFamily: "monospace",
-          fontSize: 14,
-          backgroundImage:
-            "linear-gradient(to right, #f2e8cb ,#b8b8b8,    #f2e8cb)",
-        }}
-      >
-        Copyright © 2025 Rushiksh Bhandare
-      </div>
       <Modal isOpen={showModal} setIsOpen={setShowModal} item={selectedImage} />
     </div>
   );
