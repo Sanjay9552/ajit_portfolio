@@ -1,12 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
 import HomeScreen from './screens/HomeScreen';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-    <HomeScreen/>
-    </div>
+    <Routes>
+        <Route path="/" element={<HomeScreen />} />
+      </Routes>
   );
 }
 
