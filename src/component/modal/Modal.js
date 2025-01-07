@@ -51,7 +51,7 @@ const Modal = ({ isOpen, setIsOpen, item }) => {
           style={{ width: "auto", height: "100%", borderRadius: "8px" }}
           stre
         />
-        <div style={{ padding: 10, width: 400 }}>
+        {/* <div style={{ padding: 10, width: 400 }}>
           <div
             style={{
               fontSize: 30,
@@ -65,7 +65,7 @@ const Modal = ({ isOpen, setIsOpen, item }) => {
             {" "}
             {item?.desc}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

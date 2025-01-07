@@ -66,7 +66,7 @@ const Title = ({ onload = () => {} }) => {
             fontSize: 35,
             fontWeight: "bold",
             fontFamily: "monospace",
-            color: isEnd ? "white" : "black",
+            color: isEnd ? "transparent" : "transparent",
           }}
         >
           WILD LIFE PHOTOGRAPHER

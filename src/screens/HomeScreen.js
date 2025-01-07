@@ -1,84 +1,11 @@
 import React, { useState } from "react";
-import images from "../utils/images";
+// import images from "../utils/images";
 import "./styles.css";
 import Masonry from "react-masonry-css";
 import Modal from "../component/modal/Modal";
 import Title from "../component/loadingName/Titile";
-
-const list = [
-  {
-    name: "Bird 14",
-    img: images.fourteen,
-    desc: "Bird is good",
-  },
-  {
-    name: "Bird",
-    img: images.one,
-    desc: "Bird is good",
-  },
-  {
-    name: "Bird 13",
-    img: images.thirteen,
-    desc: "Bird is good",
-  },
-  {
-    name: "Bird 02",
-    img: images.two,
-    desc: "Bird is good",
-  },
-
-  {
-    name: "Bird 03",
-    img: images.three,
-    desc: "Bird is good",
-  },
-  {
-    name: "Bird 07",
-    img: images.seven,
-    desc: "Bird is good",
-  },
-  {
-    name: "Bird 04",
-    img: images.four,
-    desc: "Bird is good",
-  },
-  {
-    name: "Bird 10",
-    img: images.ten,
-    desc: "Bird is good",
-  },
-  {
-    name: "Bird 12",
-    img: images.twelve,
-    desc: "Bird is good",
-  },
-  {
-    name: "Bird 05",
-    img: images.five,
-    desc: "Bird is good",
-  },
-  {
-    name: "Bird 06",
-    img: images.six,
-    desc: "Bird is good",
-  },
-
-  {
-    name: "Bird 08",
-    img: images.eight,
-    desc: "Bird is good",
-  },
-  {
-    name: "Bird 09",
-    img: images.nine,
-    desc: "Bird is good",
-  },
-  //   {
-  //     name: "Bird 11",
-  //     img: images.eleven,
-  //     desc: "Bird is good",
-  //   },
-];
+import list from "../utils/images";
+import CoverCard from "../component/cardCover/CoverCard";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -89,7 +16,7 @@ function getWindowDimensions() {
 }
 
 const HomeScreen = () => {
-  const [windowDimensions, setWindowDimensions] = useState(
+  const [windowDimensions, ] = useState(
     getWindowDimensions()
   );
   const [showModal, setShowModal] = useState(false);
@@ -103,26 +30,29 @@ const HomeScreen = () => {
 
   console.log("selected Image ", selectedImage);
 
+  const getDirectLink = (shareLink) => {
+    const fileId = shareLink.match(/d\/(.*?)\//)?.[1];
+    return `https://drive.google.com/uc?export=view&id=${fileId}`;
+  };
+  
+    const shareLink = "https://drive.google.com/file/d/1glVSGofTDiW_Ne8CyMdfta6kigUFA5tc/view?usp=sharing";
+    const directLink = getDirectLink(shareLink);
+  
   return (
     <div style={{ backgroundColor: "#fff", padding: "0" }}>
-      <div
+      {/* <div
         style={{
           height: windowDimensions.height,
           alignItems: isTitleAnimationEnd ? "start" : " center",
           justifyContent: isTitleAnimationEnd ? "center" : "center",
           display: "flex",
           flexDirection: "column",
-          backgroundImage: isTitleAnimationEnd && `url(${images.home})`,
+          backgroundImage: isTitleAnimationEnd && `url(${list.background})`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}
       >
-        {/* <div></div>
-        <div style={{ fontSize: 30, fontWeight: "bold" }}>Ajit Bhanadre</div>
-        <div style={{ fontSize: 30, fontWeight: "bold" }}>
-          Wildlife Photography
-        </div> */}
         <div style={{ padding: 40 }}>
           <Title
             onload={() => {
@@ -130,8 +60,40 @@ const HomeScreen = () => {
             }}
           />
         </div>
+      </div> */}
+      <div
+        style={{
+          height: windowDimensions.height,
+          // alignItems: isTitleAnimationEnd ? "start" : " center",
+          // justifyContent: isTitleAnimationEnd ? "center" : "center",
+          // display: "flex",
+          // flexDirection: "column",
+          // backgroundImage: isTitleAnimationEnd && `url(${list.background})`,
+          // backgroundRepeat: "no-repeat",
+          // backgroundPosition: "center",
+          // backgroundSize: "cover",
+        }}
+      >
+
+
+      {/* <article>
+      <section> */}
+      <CoverCard
+       title="Ajit Bhandare /n Wildlife Photography"
+       image="../../Assets/img/background.jpg"
+       subTitle="African forest tour"
+       text={`An amazing history, stunning nature, and a high level of
+       development make the country unique on the African continent.
+       Two oceans, savannah, mountains, desert, rainforest and the
+       rythms of African drums.`}
+       link="#"
+      />
+              {/* </section>
+              </article> */}
       </div>
-      {isTitleAnimationEnd && (
+
+
+      {isTitleAnimationEnd || true && (
         <>
           <div style={{ padding: 10 }}>
             <Masonry
@@ -139,7 +101,7 @@ const HomeScreen = () => {
               className="masonry-grid"
               columnClassName="masonry-column"
             >
-              {list.map((item, index) => {
+              {list?.list.map((item, index) => {
                 const isSelected = item.img === selectedImage?.img;
                 return (
                   <div
