@@ -62,7 +62,13 @@ const HomeScreen = () => {
   });
 
   return (
-    <div style={{ backgroundColor: "#fff", padding: "0" }}>
+    <div
+      style={{
+        paddingTop: 60,
+        backgroundColor: "#fff",
+        // padding: "0",
+      }}
+    >
       {/* <div
         style={{
           height: windowDimensions.height,
@@ -84,9 +90,15 @@ const HomeScreen = () => {
           />
         </div>
       </div> */}
-      {/* <div
+      <div
         style={{
-          height: windowDimensions.height,
+          height: windowDimensions.height / 8,
+          backgroundColor: "#fff",
+          alignItems: "center",
+          justifyContent: "center",
+          display: "flex",
+          fontSize: "1vw",
+          fontStyle: "italic",
           // alignItems: isTitleAnimationEnd ? "start" : " center",
           // justifyContent: isTitleAnimationEnd ? "center" : "center",
           // display: "flex",
@@ -97,18 +109,28 @@ const HomeScreen = () => {
           // backgroundSize: "cover",
         }}
       >
-        <CoverCard
+        "The wild tells its story; you just need to listen through the lens."
+        {/* <article>
+      <section> */}
+        {/* <CoverCard
           title="Ajit Bhandare"
           image="../../Assets/img/background.jpg"
           subTitle="Wildlife Photography"
           link="#"
-        />
-      </div> */}
+        /> */}
+        {/* </section>
+              </article> */}
+      </div>
 
       {isTitleAnimationEnd ||
         (true && (
           <>
-            <div style={{ padding: 20 }}>
+            <div
+              style={{
+                paddingTop: 60,
+                // paddingTop: windowDimensions.height / 6,
+              }}
+            >
               <Masonry
                 breakpointCols={breakpointColumnsObj}
                 className="masonry-grid"
@@ -163,8 +185,9 @@ const HomeScreen = () => {
                 padding: 10,
                 fontFamily: "monospace",
                 fontSize: 14,
-                backgroundImage:
-                  "linear-gradient(to right, #f2e8cb ,#b8b8b8,    #f2e8cb)",
+                backgroundColor: "#fff",
+                // backgroundImage:
+                //   "linear-gradient(to right, #f2e8cb ,#b8b8b8,    #f2e8cb)",
               }}
             >
               Copyright © 2025 Rushiksh Bhandare

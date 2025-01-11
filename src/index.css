@@ -1,7 +1,11 @@
 @import url('../node_modules/locomotive-scroll/dist/locomotive-scroll.css');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+
+/* https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap */
 body{
   margin: 0px;
-  background-color: black;
+  background-color: white;
+  font-family: 'Bebas', sans-serif;
 }
 

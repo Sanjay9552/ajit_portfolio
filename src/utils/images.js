@@ -78,8 +78,6 @@ import BGImage from "../Assets/img/BGImage.jpg";
 import backgroundImg from "../Assets/img/backgroundImg.jpeg";
 import low from "../Assets/img/low01.jpg";
 
-
-
 const list = [
   { name: "Bird 1", img: one, desc: "Bird is good" },
   { name: "Bird 2", img: two, desc: "Bird is good" },
@@ -160,11 +158,11 @@ const list = [
   // { name: "Home", img: home, desc: "Bird is good" },
 ];
 
-let newList = list.map((item)=> {
+let newList = list.map((item) => {
   return {
     ...item,
-    img: low
-  }
-})
+    img: low,
+  };
+});
 
-export default {list: newList, BGImage, backgroundImg};
+export default { list, BGImage, backgroundImg };
