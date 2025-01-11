@@ -84,7 +84,7 @@ const HomeScreen = () => {
           />
         </div>
       </div> */}
-      <div
+      {/* <div
         style={{
           height: windowDimensions.height,
           // alignItems: isTitleAnimationEnd ? "start" : " center",
@@ -97,17 +97,13 @@ const HomeScreen = () => {
           // backgroundSize: "cover",
         }}
       >
-        {/* <article>
-      <section> */}
         <CoverCard
           title="Ajit Bhandare"
           image="../../Assets/img/background.jpg"
           subTitle="Wildlife Photography"
           link="#"
         />
-        {/* </section>
-              </article> */}
-      </div>
+      </div> */}
 
       {isTitleAnimationEnd ||
         (true && (

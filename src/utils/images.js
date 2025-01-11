@@ -74,7 +74,11 @@ import seventyThree from "../Assets/img/73.jpg";
 import seventyFour from "../Assets/img/74.jpg";
 import seventyFive from "../Assets/img/75.jpg";
 import seventySix from "../Assets/img/76.jpg";
-import background from "../Assets/img/background.jpg";
+import BGImage from "../Assets/img/BGImage.jpg";
+import backgroundImg from "../Assets/img/backgroundImg.jpeg";
+import low from "../Assets/img/low01.jpg";
+
+
 
 const list = [
   { name: "Bird 1", img: one, desc: "Bird is good" },
@@ -156,4 +160,11 @@ const list = [
   // { name: "Home", img: home, desc: "Bird is good" },
 ];
 
-export default {list, background};
+let newList = list.map((item)=> {
+  return {
+    ...item,
+    img: low
+  }
+})
+
+export default {list: newList, BGImage, backgroundImg};
