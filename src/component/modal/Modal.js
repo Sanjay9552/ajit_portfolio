@@ -1,6 +1,6 @@
 import React from "react";
 
-const Modal = ({ isOpen, setIsOpen, item }) => {
+const Modal = ({ isOpen, setIsOpen, item, onContextMenu }) => {
   const modalStyles = {
     display: isOpen ? "flex" : "none",
     position: "fixed",
@@ -49,7 +49,7 @@ const Modal = ({ isOpen, setIsOpen, item }) => {
           src={item?.img}
           alt={item?.name}
           style={{ width: "auto", height: "100%", borderRadius: "8px" }}
-          stre
+          onContextMenu={onContextMenu}
         />
         {/* <div style={{ padding: 10, width: 400 }}>
           <div

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import images from "../utils/images";
 import "./styles.css";
 import Masonry from "react-masonry-css";
@@ -16,14 +16,12 @@ function getWindowDimensions() {
 }
 
 const HomeScreen = () => {
-  const [windowDimensions, ] = useState(
-    getWindowDimensions()
-  );
+  const [windowDimensions] = useState(getWindowDimensions());
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [isTitleAnimationEnd, setIsTitleAnimationEnd] = useState(false);
   const breakpointColumnsObj = {
-    default: 3, // 3 columns for large screens
+    default: 5, // 3 columns for large screens
     1100: 2, // 2 columns for medium screens
     700: 1, // 1 column for small screens
   };
@@ -34,10 +32,35 @@ const HomeScreen = () => {
     const fileId = shareLink.match(/d\/(.*?)\//)?.[1];
     return `https://drive.google.com/uc?export=view&id=${fileId}`;
   };
-  
-    const shareLink = "https://drive.google.com/file/d/1glVSGofTDiW_Ne8CyMdfta6kigUFA5tc/view?usp=sharing";
-    const directLink = getDirectLink(shareLink);
-  
+
+  const shareLink =
+    "https://drive.google.com/file/d/1glVSGofTDiW_Ne8CyMdfta6kigUFA5tc/view?usp=sharing";
+  const directLink = getDirectLink(shareLink);
+
+  const disableContextMenu = (event) => {
+    event.preventDefault();
+  };
+
+  useEffect(() => {
+    document.addEventListener("contextmenu", (event) => event.preventDefault());
+    document.addEventListener("keydown", (event) => {
+      if (
+        (event.ctrlKey || event.metaKey) &&
+        (event.key === "i" ||
+          event.key === "c" ||
+          event.key === "u" ||
+          event.key === "j")
+      ) {
+        event.preventDefault();
+      }
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "F12") {
+        event.preventDefault();
+      }
+    });
+  });
+
   return (
     <div style={{ backgroundColor: "#fff", padding: "0" }}>
       {/* <div
@@ -74,88 +97,90 @@ const HomeScreen = () => {
           // backgroundSize: "cover",
         }}
       >
-
-
-      {/* <article>
+        {/* <article>
       <section> */}
-      <CoverCard
-       title="Ajit Bhandare /n Wildlife Photography"
-       image="../../Assets/img/background.jpg"
-       subTitle="African forest tour"
-       text={`An amazing history, stunning nature, and a high level of
-       development make the country unique on the African continent.
-       Two oceans, savannah, mountains, desert, rainforest and the
-       rythms of African drums.`}
-       link="#"
-      />
-              {/* </section>
+        <CoverCard
+          title="Ajit Bhandare"
+          image="../../Assets/img/background.jpg"
+          subTitle="Wildlife Photography"
+          link="#"
+        />
+        {/* </section>
               </article> */}
       </div>
 
-
-      {isTitleAnimationEnd || true && (
-        <>
-          <div style={{ padding: 10 }}>
-            <Masonry
-              breakpointCols={breakpointColumnsObj}
-              className="masonry-grid"
-              columnClassName="masonry-column"
-            >
-              {list?.list.map((item, index) => {
-                const isSelected = item.img === selectedImage?.img;
-                return (
-                  <div
-                    onMouseEnter={() => {
-                      setSelectedImage(item);
-                    }}
-                    onClick={() => {
-                      setShowModal(true);
-                      setSelectedImage(item);
-                    }}
-                    key={index}
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      padding: 5,
-                      borderRadius: 10,
-                      boxShadow: isSelected
-                        ? "rgba(0, 0, 0, 0.50) 0px 3px 8px"
-                        : "",
-                    }}
-                  >
-                    <img
-                      src={item?.img}
-                      alt={item?.name}
-                      style={{
-                        width: "100% ",
-                        height: "100%",
-                        borderRadius: "8px",
+      {isTitleAnimationEnd ||
+        (true && (
+          <>
+            <div style={{ padding: 20 }}>
+              <Masonry
+                breakpointCols={breakpointColumnsObj}
+                className="masonry-grid"
+                columnClassName="masonry-column"
+              >
+                {list?.list.map((item, index) => {
+                  const isSelected = item.img === selectedImage?.img;
+                  return (
+                    <div
+                      onMouseEnter={() => {
+                        setSelectedImage(item);
                       }}
-                    />
-                  </div>
-                );
-              })}
-            </Masonry>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: 20,
-              backgroundColor: "gray",
-              padding: 10,
-              fontFamily: "monospace",
-              fontSize: 14,
-              backgroundImage:
-                "linear-gradient(to right, #f2e8cb ,#b8b8b8,    #f2e8cb)",
-            }}
-          >
-            Copyright © 2025 Rushiksh Bhandare
-          </div>
-        </>
-      )}
-      <Modal isOpen={showModal} setIsOpen={setShowModal} item={selectedImage} />
+                      onClick={() => {
+                        setShowModal(true);
+                        setSelectedImage(item);
+                      }}
+                      key={index}
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        padding: 5,
+                        borderRadius: 10,
+                        boxShadow: isSelected
+                          ? "rgba(0, 0, 0, 0.50) 0px 3px 8px"
+                          : "",
+                      }}
+                    >
+                      <img
+                        src={item?.img}
+                        srcSet={`${item?.img} 300w,${item?.img}, ${item?.img} 900w`}
+                        alt={item?.name}
+                        loading="lazy"
+                        onContextMenu={disableContextMenu}
+                        style={{
+                          width: "100% ",
+                          height: "100%",
+                          borderRadius: "8px",
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+              </Masonry>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: 20,
+                backgroundColor: "gray",
+                padding: 10,
+                fontFamily: "monospace",
+                fontSize: 14,
+                backgroundImage:
+                  "linear-gradient(to right, #f2e8cb ,#b8b8b8,    #f2e8cb)",
+              }}
+            >
+              Copyright © 2025 Rushiksh Bhandare
+            </div>
+          </>
+        ))}
+      <Modal
+        isOpen={showModal}
+        setIsOpen={setShowModal}
+        item={selectedImage}
+        onContextMenu={disableContextMenu}
+      />
     </div>
   );
 };
