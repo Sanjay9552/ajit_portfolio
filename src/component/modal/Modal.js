@@ -23,13 +23,14 @@ const Modal = ({ isOpen, setIsOpen, item, onContextMenu }) => {
     width: "100%",
     height: "100%",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backdropFilter: "blur(20px)",
     zIndex: 999,
   };
 
   const closeButtonStyles = {
     position: "absolute",
-    top: -10,
-    right: -10,
+    top: -20,
+    right: -20,
     padding: 5,
     backgroundColor: "white",
     border: "0.2px solid black",
@@ -46,7 +47,7 @@ const Modal = ({ isOpen, setIsOpen, item, onContextMenu }) => {
         </div>
 
         <img
-          src={item?.img}
+          src={item?.imgHighRes}
           alt={item?.name}
           style={{ width: "auto", height: "100%", borderRadius: "8px" }}
           onContextMenu={onContextMenu}

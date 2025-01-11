@@ -23,7 +23,7 @@ export default function Intro() {
         scrub: true,
         start: "top",
         end: "bottom",
-        markers: true,
+        // markers: true,
       },
     });
 
@@ -39,7 +39,7 @@ export default function Intro() {
     // Description text appears, scrolls up, and resets on scroll
     gsap.fromTo(
       descriptionText.current,
-      { opacity: 0, y: 100, x: 200 },
+      { opacity: 0, y: 100, x: '13vw' },
       {
         opacity: 1,
         y: 0,
@@ -106,9 +106,9 @@ export default function Intro() {
           <h1 className={styles.introFont} ref={introText}>
             AJIT BHANDARE
           </h1>
-          <h3 style={{ marginBottom: 0 }} ref={introText}>
+          <p style={{ marginBottom: 0, fontWeight: '100', }} ref={introText}>
             Wildlife Photography
-          </h3>
+          </p>
         </div>
       </div>
 
@@ -120,13 +120,13 @@ export default function Intro() {
             padding: 20,
             borderRadius: 10,
             color: "black",
-            fontWeight: "bold",
-            opacity: 0.5,
+            // fontWeight: "regular",
+            // opacity: 0.5,
           }}
         >
           <p>My name is Ajit Bhandare,</p>
           <p>
-            an animator and passionate wildlife photographer from a village in
+            An animator and passionate wildlife photographer from a village in
             Maharashtra, India.
           </p>
           <p>

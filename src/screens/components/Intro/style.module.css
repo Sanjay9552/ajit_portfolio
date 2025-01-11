@@ -29,14 +29,14 @@
     /* background-color: white; */
     font-size: 1vw;
     color: #fff;
-    width: 20vw;
+    width: 30vw;
     height: 100vh;
     /* text-align: center; */
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 'ital';
-    font-family: 'Montserrat';
+    /* font-family: 'Montserrat'; */
     /* left: 10vw; */
   }
 

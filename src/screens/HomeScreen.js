@@ -21,7 +21,7 @@ const HomeScreen = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isTitleAnimationEnd, setIsTitleAnimationEnd] = useState(false);
   const breakpointColumnsObj = {
-    default: 5, // 3 columns for large screens
+    default: 4, // 3 columns for large screens
     1100: 2, // 2 columns for medium screens
     700: 1, // 1 column for small screens
   };
@@ -66,7 +66,7 @@ const HomeScreen = () => {
       style={{
         paddingTop: 60,
         backgroundColor: "#fff",
-        // padding: "0",
+        padding: 10,
       }}
     >
       {/* <div
@@ -137,7 +137,8 @@ const HomeScreen = () => {
                 columnClassName="masonry-column"
               >
                 {list?.list.map((item, index) => {
-                  const isSelected = item.img === selectedImage?.img;
+                  const isSelected = item.imgLowRes === selectedImage?.imgLowRes;
+                  console.log("isSelected", isSelected)
                   return (
                     <div
                       onMouseEnter={() => {
@@ -151,18 +152,19 @@ const HomeScreen = () => {
                       style={{
                         display: "flex",
                         flexDirection: "row",
-                        padding: 5,
+                        margin: 5,
+                        padding: isSelected ?0 :5,
                         borderRadius: 10,
                         boxShadow: isSelected
-                          ? "rgba(0, 0, 0, 0.50) 0px 3px 8px"
+                          ? "rgba(0, 0, 0, 0.24) 0px 3px 8px"
                           : "",
                       }}
                     >
                       <img
-                        src={item?.img}
-                        srcSet={`${item?.img} 300w,${item?.img}, ${item?.img} 900w`}
+                        src={item?.imgLowRes}
+                        // srcSet={`${item?.img} 300w,${item?.img}, ${item?.img} 900w`}
                         alt={item?.name}
-                        loading="lazy"
+                        // loading="lazy"
                         onContextMenu={disableContextMenu}
                         style={{
                           width: "100% ",
