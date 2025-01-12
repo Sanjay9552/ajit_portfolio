@@ -5,7 +5,7 @@ const highResImages = [];
 
 for (let i = 1; i <= 76; i++) {
   const index = i.toString().padStart(2, '0');
-  lowResImages.push(require(`../Assets/LowRes/LowRes_${index}.jpg`));
+  lowResImages.push(require(`../Assets/LowResWebp/LowRes_${index}.webp`));
   highResImages.push(require(`../Assets/HighRes/HighRes_${index}.jpg`));
 }
 
