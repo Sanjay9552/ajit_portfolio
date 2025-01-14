@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/ajit_portfolio/static/css/main.1a9516b7.css",
-    "main.js": "/ajit_portfolio/static/js/main.c4b2b795.js",
+    "main.css": "/ajit_portfolio/static/css/main.96d23271.css",
+    "main.js": "/ajit_portfolio/static/js/main.83d72f24.js",
     "static/js/308.7a8a58db.chunk.js": "/ajit_portfolio/static/js/308.7a8a58db.chunk.js",
     "static/media/HighRes_08.jpg": "/ajit_portfolio/static/media/HighRes_08.bf0c924ec27295922191.jpg",
     "static/media/HighRes_31.jpg": "/ajit_portfolio/static/media/HighRes_31.0a7f1de671a66df0b283.jpg",
@@ -154,16 +154,18 @@
     "static/media/LowRes_70.webp": "/ajit_portfolio/static/media/LowRes_70.72b22bf76d64f52f9473.webp",
     "static/media/LowRes_06.webp": "/ajit_portfolio/static/media/LowRes_06.143e82c6d258daa3e510.webp",
     "static/media/LowRes_14.webp": "/ajit_portfolio/static/media/LowRes_14.fb03106d5d09cd28f514.webp",
+    "static/media/instagram.png": "/ajit_portfolio/static/media/instagram.e719d8b29f452a16302d.png",
     "static/media/LowRes_34.webp": "/ajit_portfolio/static/media/LowRes_34.62f36a588285cd0ac856.webp",
     "static/media/LowRes_58.webp": "/ajit_portfolio/static/media/LowRes_58.7a9404a078a34365eb9f.webp",
     "static/media/LowRes_15.webp": "/ajit_portfolio/static/media/LowRes_15.3c952cd4aa25a7f70e8a.webp",
+    "static/media/linkedin.png": "/ajit_portfolio/static/media/linkedin.f249b38224ca41a0b909.png",
     "index.html": "/ajit_portfolio/index.html",
-    "main.1a9516b7.css.map": "/ajit_portfolio/static/css/main.1a9516b7.css.map",
-    "main.c4b2b795.js.map": "/ajit_portfolio/static/js/main.c4b2b795.js.map",
+    "main.96d23271.css.map": "/ajit_portfolio/static/css/main.96d23271.css.map",
+    "main.83d72f24.js.map": "/ajit_portfolio/static/js/main.83d72f24.js.map",
     "308.7a8a58db.chunk.js.map": "/ajit_portfolio/static/js/308.7a8a58db.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1a9516b7.css",
-    "static/js/main.c4b2b795.js"
+    "static/css/main.96d23271.css",
+    "static/js/main.83d72f24.js"
   ]
 }
