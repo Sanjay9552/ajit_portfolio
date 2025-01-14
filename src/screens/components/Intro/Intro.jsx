@@ -41,9 +41,13 @@ export default function Intro() {
 
     gsap.fromTo(
       background.current,
-      { filter: "blur(20px)" },
+      {
+        filter: "blur(150px)",
+        scale: 1.5, // Starting scale value (slightly zoomed in)
+      },
       {
         filter: "blur(0px)",
+        scale: 1,
         scrollTrigger: {
           trigger: introText.current,
           start: "top bottom",
