@@ -1,95 +1,89 @@
-import React, { useEffect, useState } from "react";
-// import images from "../utils/images";
+import React, { useEffect, useState, useRef } from "react";
 import "./styles.css";
 import Masonry from "react-masonry-css";
 import Modal from "../component/modal/Modal";
-import Title from "../component/loadingName/Titile";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import list from "../utils/images";
-import CoverCard from "../component/cardCover/CoverCard";
-
-function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
-  return {
-    width,
-    height,
-  };
-}
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
+import ButtonWithIcon from "./components/ButtonWithIcon";
+import images from "../utils/images";
 
 const HomeScreen = () => {
-  const [windowDimensions] = useState(getWindowDimensions());
+  const [windowDimensions, setWindowDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [isTitleAnimationEnd, setIsTitleAnimationEnd] = useState(false);
+  const [imagesToShow, setImagesToShow] = useState([]);
+  const [batchIndex, setBatchIndex] = useState(1); // Tracks current batch index
+  const observerRef = useRef(null);
+
+  const IMAGES_PER_BATCH = 10;
+
   const breakpointColumnsObj = {
-    default: 4, // 3 columns for large screens
-    1100: 2, // 2 columns for medium screens
-    700: 1, // 1 column for small screens
+    default: 4, // Columns for large screens
   };
 
-  console.log("selected Image ", selectedImage);
+  // Load the initial batch of images
+  useEffect(() => {
+    const initialImages = list.list.slice(0, IMAGES_PER_BATCH);
+    setImagesToShow(initialImages);
+  }, []);
 
-  const getDirectLink = (shareLink) => {
-    const fileId = shareLink.match(/d\/(.*?)\//)?.[1];
-    return `https://drive.google.com/uc?export=view&id=${fileId}`;
+  // Load more images when the observer is triggered
+  useEffect(() => {
+    if (!observerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          loadMoreImages();
+        }
+      },
+      {
+        root: null,
+        threshold: 1.0,
+      }
+    );
+
+    observer.observe(observerRef.current);
+
+    return () => {
+      if (observerRef.current) observer.unobserve(observerRef.current);
+    };
+  }, [imagesToShow]);
+
+  const loadMoreImages = () => {
+    const nextBatchStart = batchIndex * IMAGES_PER_BATCH;
+    const nextBatchEnd = nextBatchStart + IMAGES_PER_BATCH;
+
+    const newImages = list.list.slice(nextBatchStart, nextBatchEnd);
+
+    if (newImages.length) {
+      setImagesToShow((prevImages) => [...prevImages, ...newImages]);
+      setBatchIndex((prevIndex) => prevIndex + 1);
+    }
   };
-
-  const shareLink =
-    "https://drive.google.com/file/d/1glVSGofTDiW_Ne8CyMdfta6kigUFA5tc/view?usp=sharing";
-  const directLink = getDirectLink(shareLink);
 
   const disableContextMenu = (event) => {
     event.preventDefault();
   };
 
-  useEffect(() => {
-    document.addEventListener("contextmenu", (event) => event.preventDefault());
-    document.addEventListener("keydown", (event) => {
-      if (
-        (event.ctrlKey || event.metaKey) &&
-        (event.key === "i" ||
-          event.key === "c" ||
-          event.key === "u" ||
-          event.key === "j")
-      ) {
-        event.preventDefault();
-      }
-    });
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "F12") {
-        event.preventDefault();
-      }
-    });
-  });
+  const onClickSocialMedia = (id) => {
+    console.log("clicking");
+    if (id === "instagram") {
+      window.open("https://www.instagram.com/wild_x_ajit/");
+    }
+    if (id === "linkedin") {
+      window.open("https://www.linkedin.com/in/ajit-bhandare-1ba77b136/");
+    }
+  };
 
   return (
-    <div
-      style={{
-        paddingTop: 60,
-        backgroundColor: "#fff",
-        padding: 10,
-      }}
-    >
-      {/* <div
-        style={{
-          height: windowDimensions.height,
-          alignItems: isTitleAnimationEnd ? "start" : " center",
-          justifyContent: isTitleAnimationEnd ? "center" : "center",
-          display: "flex",
-          flexDirection: "column",
-          backgroundImage: isTitleAnimationEnd && `url(${list.background})`,
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-        }}
-      >
-        <div style={{ padding: 40 }}>
-          <Title
-            onload={() => {
-              setIsTitleAnimationEnd(true);
-            }}
-          />
-        </div>
-      </div> */}
+    <div>
       <div
         style={{
           height: windowDimensions.height / 8,
@@ -99,108 +93,160 @@ const HomeScreen = () => {
           display: "flex",
           fontSize: "1vw",
           fontStyle: "italic",
-          // alignItems: isTitleAnimationEnd ? "start" : " center",
-          // justifyContent: isTitleAnimationEnd ? "center" : "center",
-          // display: "flex",
-          // flexDirection: "column",
-          // backgroundImage: isTitleAnimationEnd && `url(${list.background})`,
-          // backgroundRepeat: "no-repeat",
-          // backgroundPosition: "center",
-          // backgroundSize: "cover",
+          paddingTop: 60,
+          fontSize: "1vw",
         }}
       >
         "The wild tells its story; you just need to listen through the lens."
-        {/* <article>
-      <section> */}
-        {/* <CoverCard
-          title="Ajit Bhandare"
-          image="../../Assets/img/background.jpg"
-          subTitle="Wildlife Photography"
-          link="#"
-        /> */}
-        {/* </section>
-              </article> */}
       </div>
+      <div
+        style={{
+          backgroundColor: "#fff",
+          // padding: 10,
+          display: "flex",
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
 
-      {isTitleAnimationEnd ||
-        (true && (
-          <>
+          // paddingRight: windowDimensions.width / 4,
+          // paddingLeft: windowDimensions.width / 4,
+        }}
+      >
+        <div
+          style={{
+            paddingTop: 60,
+            maxWidth: "1080px",
+          }}
+        >
+          <Masonry
+            breakpointCols={breakpointColumnsObj}
+            className="masonry-grid"
+            columnClassName="masonry-column"
+          >
+            {imagesToShow.map((item, index) => {
+              const isSelected = item.imgLowRes === selectedImage?.imgLowRes;
+              //  console.log("isSelected", isSelected)
+              return (
+                <div
+                  onMouseEnter={() => {
+                    setSelectedImage(item);
+                  }}
+                  onClick={() => {
+                    setShowModal(true);
+                    setSelectedImage(item);
+                  }}
+                  key={index}
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    margin: 5,
+                    padding: isSelected ? 0 : 5,
+                    borderRadius: 10,
+                    boxShadow: isSelected
+                      ? "rgba(0, 0, 0, 0.24) 0px 3px 8px"
+                      : "",
+                  }}
+                >
+                  {/* <PhotoProvider
+                    speed={() => 800}
+                    easing={(type) =>
+                      type === 2
+                        ? "cubic-bezier(0.36, 0, 0.66, -0.56)"
+                        : "cubic-bezier(0.34, 1.56, 0.64, 1)"
+                    }
+                  >
+                    <PhotoView src={item.imgHighRes}>
+                      <img src="/1-thumbnail.jpg" alt="" /> */}
+                  <LazyLoadImage
+                    src={item?.imgLowRes}
+                    alt={item.name}
+                    effect="blur"
+                    style={{ width: "100%", height: "100%" }}
+                    onContextMenu={disableContextMenu}
+                  />
+                  {/* </PhotoView>
+                  </PhotoProvider> */}
+                </div>
+              );
+            })}
+          </Masonry>
+
+          {/* Loader for Intersection Observer */}
+          {list.list.length !== imagesToShow.length && (
             <div
+              ref={observerRef}
               style={{
-                paddingTop: 60,
-                // paddingTop: windowDimensions.height / 6,
-              }}
-            >
-              <Masonry
-                breakpointCols={breakpointColumnsObj}
-                className="masonry-grid"
-                columnClassName="masonry-column"
-              >
-                {list?.list.map((item, index) => {
-                  const isSelected = item.imgLowRes === selectedImage?.imgLowRes;
-                  console.log("isSelected", isSelected)
-                  return (
-                    <div
-                      onMouseEnter={() => {
-                        setSelectedImage(item);
-                      }}
-                      onClick={() => {
-                        setShowModal(true);
-                        setSelectedImage(item);
-                      }}
-                      key={index}
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        margin: 5,
-                        padding: isSelected ?0 :5,
-                        borderRadius: 10,
-                        boxShadow: isSelected
-                          ? "rgba(0, 0, 0, 0.24) 0px 3px 8px"
-                          : "",
-                      }}
-                    >
-                      <img
-                        src={item?.imgLowRes}
-                        // srcSet={`${item?.img} 300w,${item?.img}, ${item?.img} 900w`}
-                        alt={item?.name}
-                        // loading="lazy"
-                        onContextMenu={disableContextMenu}
-                        style={{
-                          width: "100% ",
-                          height: "100%",
-                          borderRadius: "8px",
-                        }}
-                      />
-                    </div>
-                  );
-                })}
-              </Masonry>
-            </div>
-            <div
-              style={{
+                height: 40,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                marginTop: 20,
-                backgroundColor: "gray",
-                padding: 10,
-                fontFamily: "monospace",
-                fontSize: 14,
-                backgroundColor: "#fff",
-                // backgroundImage:
-                //   "linear-gradient(to right, #f2e8cb ,#b8b8b8,    #f2e8cb)",
               }}
             >
-              Copyright © 2025 Rushiksh Bhandare
+              <p>Loading more images...</p>
             </div>
-          </>
-        ))}
+          )}
+        </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          // alignItems: "center",
+          justifyContent: "center",
+          // marginTop: 20,
+          padding: 10,
+          // fontFamily: "monospace",
+          fontSize: 14,
+          backgroundColor: "#303030",
+          color: "#fff",
+          // flexDirection: "column",
+
+          flex: 1,
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "1080px",
+            display: "flex",
+            flex: 1,
+            flexDirection: "column",
+          }}
+        >
+          <div style={{ display: "flex", flex: 1 }}>
+            <div>
+              <h3 style={{ color: "#c7c7c7" }}>Ajit Bhandare</h3>
+              <p style={{ color: "#c7c7c7" }}>Address - </p>
+              <p style={{ color: "#c7c7c7" }}>email: ajitbhandare82@gmai.com</p>
+              <ButtonWithIcon
+                id={"instagram"}
+                img={images.instagram}
+                onClick={onClickSocialMedia}
+              />
+              <ButtonWithIcon
+                id={"linkedin"}
+                img={images.linkedIn}
+                onClick={onClickSocialMedia}
+              />
+            </div>
+            {/* <div style={{ display: "flex", flex: 1 }}>eho</div> */}
+          </div>
+          <div
+            style={{
+              color: "#c7c7c7",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <p>Copyright © 2025 Rushikesh Bhandare</p>
+          </div>
+        </div>
+      </div>
+
       <Modal
         isOpen={showModal}
         setIsOpen={setShowModal}
         item={selectedImage}
-        onContextMenu={disableContextMenu}
+        windowDimensions={windowDimensions}
       />
     </div>
   );

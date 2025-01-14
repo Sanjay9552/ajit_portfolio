@@ -5,13 +5,14 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import images from "../../../utils/images";
 import HomeScreen from "../../HomeScreen";
+import ButtonWithIcon from "../ButtonWithIcon";
 // import HomeScreen from "../HomeScreen/HomeScreen"; // Import HomeScreen component
 
 export default function Intro() {
   const background = useRef(null);
   const introText = useRef(null);
   const descriptionText = useRef(null);
-  const [showHomeScreen, setShowHomeScreen] = useState(false); // State to control HomeScreen rendering
+  // const [showHomeScreen, setShowHomeScreen] = useState(false); // State to control HomeScreen rendering
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -39,7 +40,7 @@ export default function Intro() {
     // Description text appears, scrolls up, and resets on scroll
     gsap.fromTo(
       descriptionText.current,
-      { opacity: 0, y: 100, x: '13vw' },
+      { opacity: 0, y: 100, x: "13vw" },
       {
         opacity: 1,
         y: 0,
@@ -48,8 +49,8 @@ export default function Intro() {
           start: "top bottom",
           end: "top top", // Ensure animation plays fully before reset
           scrub: true,
-          onEnter: () => setShowHomeScreen(true), // Show HomeScreen when description enters view
-          onLeaveBack: () => setShowHomeScreen(false), // Hide HomeScreen on scrolling back up
+          // onEnter: () => setShowHomeScreen(true), // Show HomeScreen when description enters view
+          // onLeaveBack: () => setShowHomeScreen(false), // Hide HomeScreen on scrolling back up
         },
       }
     );
@@ -85,6 +86,16 @@ export default function Intro() {
     // );
   }, []);
 
+  const onClickSocialMedia = (id) => {
+    console.log("clicking");
+    if (id === "instagram") {
+      window.open("https://www.instagram.com/wild_x_ajit/");
+    }
+    if (id === "linkedin") {
+      window.open("https://www.linkedin.com/in/ajit-bhandare-1ba77b136/");
+    }
+  };
+
   return (
     <>
       <div className={styles.homeHeader}>
@@ -106,7 +117,7 @@ export default function Intro() {
           <h1 className={styles.introFont} ref={introText}>
             AJIT BHANDARE
           </h1>
-          <p style={{ marginBottom: 0, fontWeight: '100', }} ref={introText}>
+          <p style={{ marginBottom: 0, fontWeight: "100" }} ref={introText}>
             Wildlife Photography
           </p>
         </div>
@@ -133,15 +144,25 @@ export default function Intro() {
             Inspired by nature's beauty, I blend my artistic vision with my love
             for the wild to capture its untamed essence through my lens.
           </p>
+          <ButtonWithIcon
+            id={"instagram"}
+            img={images.instagram}
+            onClick={onClickSocialMedia}
+          />
+          <ButtonWithIcon
+            id={"linkedin"}
+            img={images.linkedIn}
+            onClick={onClickSocialMedia}
+          />
         </div>
       </div>
 
       {/* Conditionally Render HomeScreen */}
-      {showHomeScreen && (
-        <>
-          <HomeScreen />
-        </>
-      )}
+      {/* {showHomeScreen && ( */}
+      <>
+        <HomeScreen />
+      </>
+      {/* )} */}
     </>
   );
 }
