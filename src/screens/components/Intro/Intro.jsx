@@ -32,12 +32,29 @@ export default function Intro() {
     timeline
       .from(background.current, {
         clipPath: `inset(15%)`,
-        filter: "blur(20px)",
+        // filter: "blur(20px)",
       })
-      .to(background.current, { clipPath: `inset(0%)`, filter: "blur(0px)" }, 0)
+      .to(background.current, { clipPath: `inset(0%)` }, 0)
       .to(introText.current, { y: -300, opacity: 0 }, "<");
 
     // Description text appears, scrolls up, and resets on scroll
+
+    gsap.fromTo(
+      background.current,
+      { filter: "blur(20px)" },
+      {
+        filter: "blur(0px)",
+        scrollTrigger: {
+          trigger: introText.current,
+          start: "top bottom",
+          end: "top top", // Ensure animation plays fully before reset
+          scrub: true,
+          // onEnter: () => setShowHomeScreen(true), // Show HomeScreen when description enters view
+          // onLeaveBack: () => setShowHomeScreen(false), // Hide HomeScreen on scrolling back up
+        },
+      }
+    );
+
     gsap.fromTo(
       descriptionText.current,
       { opacity: 0, y: 100, x: "13vw" },
@@ -86,16 +103,6 @@ export default function Intro() {
     // );
   }, []);
 
-  const onClickSocialMedia = (id) => {
-    console.log("clicking");
-    if (id === "instagram") {
-      window.open("https://www.instagram.com/wild_x_ajit/");
-    }
-    if (id === "linkedin") {
-      window.open("https://www.linkedin.com/in/ajit-bhandare-1ba77b136/");
-    }
-  };
-
   return (
     <>
       <div className={styles.homeHeader}>
@@ -114,7 +121,11 @@ export default function Intro() {
 
         {/* Intro Section */}
         <div className={styles.intro}>
-          <h1 className={styles.introFont} ref={introText}>
+          <h1
+            className={styles.introFont}
+            style={{ fontWeight: "400" }}
+            ref={introText}
+          >
             AJIT BHANDARE
           </h1>
           <p style={{ marginBottom: 0, fontWeight: "100" }} ref={introText}>
@@ -144,16 +155,6 @@ export default function Intro() {
             Inspired by nature's beauty, I blend my artistic vision with my love
             for the wild to capture its untamed essence through my lens.
           </p>
-          <ButtonWithIcon
-            id={"instagram"}
-            img={images.instagram}
-            onClick={onClickSocialMedia}
-          />
-          <ButtonWithIcon
-            id={"linkedin"}
-            img={images.linkedIn}
-            onClick={onClickSocialMedia}
-          />
         </div>
       </div>
 

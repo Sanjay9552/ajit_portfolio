@@ -4,7 +4,7 @@ import Masonry from "react-masonry-css";
 import Modal from "../component/modal/Modal";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import list from "../utils/images";
-import { PhotoProvider, PhotoView } from "react-photo-view";
+// import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
 import ButtonWithIcon from "./components/ButtonWithIcon";
 import images from "../utils/images";
@@ -116,6 +116,8 @@ const HomeScreen = () => {
           style={{
             paddingTop: 60,
             maxWidth: "1080px",
+            paddingRight: 60,
+            paddingLeft: 60,
           }}
         >
           <Masonry
@@ -161,7 +163,7 @@ const HomeScreen = () => {
                     src={item?.imgLowRes}
                     alt={item.name}
                     effect="blur"
-                    style={{ width: "100%", height: "100%" }}
+                    style={{ width: "100%", height: "100%", borderRadius: 10 }}
                     onContextMenu={disableContextMenu}
                   />
                   {/* </PhotoView>
@@ -214,8 +216,9 @@ const HomeScreen = () => {
           <div style={{ display: "flex", flex: 1 }}>
             <div>
               <h3 style={{ color: "#c7c7c7" }}>Ajit Bhandare</h3>
-              <p style={{ color: "#c7c7c7" }}>Address - </p>
-              <p style={{ color: "#c7c7c7" }}>email: ajitbhandare82@gmai.com</p>
+              <p style={{ color: "#c7c7c7" }}>
+                email: ajitbhandare82@gmail.com
+              </p>
               <ButtonWithIcon
                 id={"instagram"}
                 img={images.instagram}
