@@ -1,0 +1,13 @@
+.description{
+    position: relative;
+    color: white;
+    font-size: 1vw;
+    /* text-transform: uppercase; */
+    width: '30%';
+    margin-top: 30vw;
+    margin-left: 10vw;
+}
+.description p{
+    margin: 0px;
+    position: relative;
+}
